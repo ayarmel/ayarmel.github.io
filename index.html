@@ -15,236 +15,162 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230d0d0d'/%3E%3Crect width='64' height='9' fill='%23e31f31'/%3E%3Ctext x='32' y='47' font-family='Georgia,serif' font-weight='bold' font-size='34' fill='%23f5f3ef' text-anchor='middle'%3EAY%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500;1,700;1,900&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #0d0d0d;
-    --bg-lift: #161616;
     --white: #f5f3ef;
-    --dim: #98948c;
+    --dim: #9a968e;
     --accent: #e31f31;
-    --line: #272727;
-    --display: 'Playfair Display', 'Didot', Georgia, serif;
-    --mono: 'Space Mono', 'Courier New', monospace;
-    --grot: 'Space Grotesk', 'Helvetica Neue', Arial, sans-serif;
+    --line: #262626;
+    --display: 'Bodoni Moda', 'Bodoni 72', 'Didot', Georgia, serif;
+    --mono: 'IBM Plex Mono', 'Menlo', 'Courier New', monospace;
+    --sans: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   body {
     background: var(--bg); color: var(--white);
-    font-family: var(--grot); font-size: 17px; line-height: 1.7;
+    font-family: var(--sans); font-size: 17px; line-height: 1.65;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
     border-top: 10px solid var(--accent);
   }
   ::selection { background: var(--accent); color: var(--white); }
-  html { scrollbar-color: #3a3a3a var(--bg); scrollbar-width: thin; }
-  ::-webkit-scrollbar { width: 10px; }
-  ::-webkit-scrollbar-track { background: var(--bg); }
-  ::-webkit-scrollbar-thumb { background: #2e2e2e; }
-  ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
-  #progress {
-    position: fixed; top: 0; left: 0; height: 2px; width: 0;
-    background: var(--accent); z-index: 300;
-  }
-  body::after {
-    content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 999;
-    opacity: 0.04;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.7'/%3E%3C/svg%3E");
-  }
 
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; justify-content: space-between; align-items: center;
-    padding: 1.5rem 4vw 1rem;
+    padding: 1.4rem 4vw 1rem;
     background: transparent; border-bottom: 1px solid transparent;
-    transition: background .3s ease, border-color .3s ease, padding .3s ease;
+    transition: background .25s ease, border-color .25s ease;
   }
   nav.scrolled {
-    background: rgba(13,13,13,0.94);
+    background: rgba(13,13,13,0.95);
     -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
     border-bottom-color: var(--line);
-    padding-top: 1rem;
   }
   .logo {
-    font-family: var(--display); font-weight: 900; font-size: 1.35rem;
-    color: #fff; text-decoration: none; letter-spacing: 0.02em;
+    font-family: var(--display); font-weight: 800; font-size: 1.3rem;
+    color: var(--white); text-decoration: none;
   }
-  .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+  .nav-links { display: flex; gap: 1.6rem; list-style: none; }
   .nav-links a {
-    color: #fff; text-decoration: none;
-    font-family: var(--mono);
-    font-size: 0.64rem; letter-spacing: 0.18em; text-transform: uppercase;
-    opacity: 0.75; transition: opacity .2s;
+    color: var(--dim); text-decoration: none;
+    font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase;
+    transition: color .2s;
   }
-  .nav-links a:hover { opacity: 1; }
-  .nav-links a.active { opacity: 1; color: var(--accent); }
+  .nav-links a:hover { color: var(--white); }
+  .nav-links a.active { color: var(--accent); }
   .menu-toggle { display: none; background: none; border: none; color: #fff; font-size: 1.7rem; cursor: pointer; }
 
   header {
     min-height: 100vh; display: flex; flex-direction: column;
-    justify-content: center; padding: 8rem 4vw 5rem; position: relative;
+    justify-content: center; padding: 8rem 4vw 5rem;
   }
-  .hero-grid {
-    display: grid; grid-template-columns: 1.25fr 1fr;
-    gap: 4rem; align-items: center;
-  }
-  .hero-photo { position: relative; margin: 0 14px 14px 0; }
-  .hero-photo::after {
-    content: ''; position: absolute; inset: 0;
-    transform: translate(14px, 14px);
-    border: 1px solid var(--accent); pointer-events: none;
-  }
-  .hero-photo img { width: 100%; display: block; position: relative; z-index: 1; }
+  .hero-grid { display: grid; grid-template-columns: 1.25fr 1fr; gap: 4rem; align-items: center; }
+  .hero-photo img { width: 100%; display: block; }
   .hero-kicker {
-    display: flex; align-items: center; gap: 1rem;
-    font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.3em;
-    text-transform: uppercase; color: var(--dim); margin-bottom: 2.5rem;
+    font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--dim); margin-bottom: 2.4rem;
   }
-  .hero-kicker::before { content: ''; width: 48px; height: 1px; background: var(--accent); }
   h1 {
     font-family: var(--display); font-weight: 900;
-    font-size: clamp(3.6rem, 13vw, 11rem);
-    line-height: 0.98; letter-spacing: 0;
+    font-size: clamp(3.6rem, 12.5vw, 10.5rem);
+    line-height: 0.98; letter-spacing: -0.01em;
   }
   h1 .last { display: block; color: var(--accent); }
   h1 .phd {
     font-family: var(--mono); font-weight: 400;
-    font-size: clamp(0.7rem, 1.2vw, 1rem); letter-spacing: 0.34em;
+    font-size: clamp(0.7rem, 1.1vw, 0.95rem); letter-spacing: 0.3em;
     color: var(--dim); vertical-align: super; margin-left: 0.6em;
   }
   .hero-roles {
     list-style: none; margin-top: 2.6rem;
-    font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.34em;
+    font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.3em;
     text-transform: uppercase; color: var(--white);
   }
-  .hero-roles li { padding: 0.42rem 0; }
-  .hero-roles li::before { content: '—'; color: var(--accent); margin-right: 1rem; }
-  .hero-note { max-width: 33em; color: var(--dim); font-size: 0.98rem; margin-top: 2.6rem; }
-  @media (prefers-reduced-motion: no-preference) {
-    .hero-kicker, header h1, .hero-roles, .hero-note, .hero-photo {
-      opacity: 0; transform: translateY(24px);
-      animation: heroin 0.9s cubic-bezier(.2,.7,.2,1) forwards;
-    }
-    header h1 { animation-delay: 0.08s; }
-    .hero-roles { animation-delay: 0.2s; }
-    .hero-note { animation-delay: 0.32s; }
-    .hero-photo { animation-delay: 0.18s; }
-  }
-  @keyframes heroin { to { opacity: 1; transform: none; } }
-  @media (prefers-reduced-motion: reduce) {
-    .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
-    html { scroll-behavior: auto; }
-  }
+  .hero-roles li { padding: 0.35rem 0; }
+  .hero-note { max-width: 33em; color: var(--dim); font-size: 1rem; margin-top: 2.6rem; }
 
-  section { padding: 7.5rem 4vw; position: relative; }
-  .sec-head { position: relative; margin-bottom: 4rem; }
-  .ghost-num {
-    position: absolute; top: 50%; left: -1vw; transform: translateY(-58%);
-    font-family: var(--display); font-weight: 900;
-    font-size: clamp(9rem, 24vw, 20rem); line-height: 1;
-    color: transparent; -webkit-text-stroke: 1px var(--line);
-    z-index: 0; user-select: none; pointer-events: none;
-  }
+  section { padding: 7rem 4vw; }
+  .sec-head { margin-bottom: 3.2rem; }
   h2 {
-    position: relative; z-index: 1;
-    font-family: var(--display); font-weight: 900;
-    font-size: clamp(2.4rem, 6.5vw, 4.6rem);
-    line-height: 1.02; letter-spacing: 0;
+    font-family: var(--display); font-weight: 800;
+    font-size: clamp(2.2rem, 5.5vw, 4rem);
+    line-height: 1.05; letter-spacing: -0.005em;
   }
-  h2 em { font-style: italic; font-weight: 700; color: var(--accent); }
 
-  .grid { display: grid; grid-template-columns: 1.35fr 1fr; gap: 5rem; position: relative; z-index: 1; }
+  .grid { display: grid; grid-template-columns: 1.35fr 1fr; gap: 5rem; }
   .lede {
     font-family: var(--display); font-weight: 500;
-    font-size: clamp(1.3rem, 2.4vw, 1.75rem); line-height: 1.42;
+    font-size: clamp(1.3rem, 2.3vw, 1.7rem); line-height: 1.4;
     margin-bottom: 1.6rem;
   }
   p + p { margin-top: 1.1rem; }
   .dim { color: var(--dim); }
-  a.tl { color: var(--white); text-decoration: none; border-bottom: 1px solid var(--accent); transition: color .2s; }
-  a.tl:hover { color: var(--accent); }
+  a.tl { color: var(--white); text-decoration: none; border-bottom: 1px solid var(--line); transition: color .2s, border-color .2s; }
+  a.tl:hover { color: var(--accent); border-bottom-color: var(--accent); }
 
   .side-label {
-    font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.28em;
-    text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; display: block;
+    font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--dim); margin-bottom: 1rem; display: block;
   }
   .spec { list-style: none; }
   .spec li {
     display: flex; justify-content: space-between; gap: 2rem;
-    padding: 1.05rem 0; border-bottom: 1px solid var(--line);
+    padding: 1rem 0; border-bottom: 1px solid var(--line);
     font-size: 0.95rem;
   }
   .spec li:first-child { border-top: 1px solid var(--line); }
-  .spec .k { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); padding-top: 0.35em; white-space: nowrap; }
+  .spec .k { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); padding-top: 0.3em; white-space: nowrap; }
   .spec .v { text-align: right; }
   .spec .v small { display: block; color: var(--dim); font-size: 0.82rem; }
 
   .btn {
     display: inline-block; margin-top: 2.4rem;
-    font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.26em; text-transform: uppercase;
-    color: var(--bg); background: var(--white); text-decoration: none;
-    padding: 1.15em 2.4em; border: 1px solid var(--white);
-    transition: background .25s, color .25s, border-color .25s;
+    font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--white); background: transparent; text-decoration: none;
+    padding: 1em 1.8em; border: 1px solid var(--white);
+    transition: color .2s, border-color .2s;
   }
-  .btn:hover { background: var(--accent); border-color: var(--accent); color: var(--white); }
-  .btn.ghost { background: transparent; color: var(--white); border-color: var(--white); }
-  .btn.ghost:hover { background: var(--accent); border-color: var(--accent); color: var(--white); }
+  .btn:hover { color: var(--accent); border-color: var(--accent); }
 
-  .pubs { list-style: none; position: relative; z-index: 1; margin-top: 1rem; }
+  .pubs { list-style: none; margin-top: 0.6rem; }
   .pubs li { border-bottom: 1px solid var(--line); }
   .pubs li:first-child { border-top: 1px solid var(--line); }
   .pubs a, .pubs .pub-row {
-    display: grid; grid-template-columns: 5rem 1fr auto; gap: 2rem; align-items: baseline;
-    padding: 1.05rem 0.5rem; text-decoration: none; color: var(--white);
-    transition: background .2s, color .2s, padding-left .25s;
+    display: grid; grid-template-columns: 4.5rem 1fr auto; gap: 2rem; align-items: baseline;
+    padding: 1rem 0; text-decoration: none; color: var(--white);
   }
-  .pubs a:hover { background: var(--accent); color: var(--white); padding-left: 1.3rem; }
-  .pub-year { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.18em; color: var(--accent); }
-  .pubs a:hover .pub-year { color: var(--white); }
-  .pub-title { font-family: var(--display); font-size: clamp(0.98rem, 1.7vw, 1.18rem); font-weight: 700; line-height: 1.35; }
-  .pub-title i { font-style: italic; font-weight: 500; }
-  .pub-venue { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--dim); text-align: right; white-space: nowrap; }
-  .pubs a:hover .pub-venue { color: var(--white); opacity: 0.8; }
-  .media-group { margin-top: 3rem; position: relative; z-index: 1; }
+  .pub-year { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.12em; color: var(--dim); }
+  .pub-title { font-family: var(--display); font-size: clamp(1rem, 1.6vw, 1.15rem); font-weight: 600; line-height: 1.35; transition: color .2s; }
+  .pub-title i { font-style: italic; font-weight: 400; }
+  .pubs a:hover .pub-title { color: var(--accent); }
+  .pub-venue { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dim); text-align: right; white-space: nowrap; }
+  .media-group { margin-top: 3rem; }
   .media-group:first-of-type { margin-top: 0; }
 
-  .photo-frame { position: relative; display: block; margin: 0 14px 14px 0; }
-  .photo-frame::after {
-    content: ''; position: absolute; inset: 0;
-    transform: translate(14px, 14px);
-    border: 1px solid var(--accent); z-index: 0; pointer-events: none;
-  }
-  .photo-frame img {
-    position: relative; z-index: 1; width: 100%; display: block;
-    aspect-ratio: 4 / 3; object-fit: cover; background: var(--bg-lift);
-    filter: grayscale(100%) contrast(1.08) brightness(0.96);
-    transition: filter .5s ease;
-  }
-  .photo-frame:hover img { filter: none; }
+  .photo-frame img { width: 100%; display: block; aspect-ratio: 4 / 3; object-fit: cover; background: #161616; }
 
-  .svc { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); margin-top: 3rem; position: relative; z-index: 1; }
-  .svc-card { background: var(--bg); padding: 2.6rem 2rem; transition: background .3s; }
-  .svc-card:hover { background: var(--bg-lift); }
-  .svc-card .idx { font-family: var(--display); font-style: italic; font-weight: 700; color: var(--accent); font-size: 1rem; }
-  .svc-card h3 { font-family: var(--display); font-weight: 700; font-size: 1.45rem; margin: 0.9rem 0 1rem; line-height: 1.15; }
-  .svc-card p { font-size: 0.92rem; color: var(--dim); }
+  .services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; margin-top: 2.4rem; max-width: 64em; }
+  .services h3 { font-family: var(--display); font-weight: 700; font-size: 1.25rem; margin-bottom: 0.6rem; line-height: 1.2; }
+  .services p { font-size: 0.95rem; color: var(--dim); }
 
-
-  .contact { padding: 9rem 4vw 8rem; background: var(--accent); }
-  .contact .eyebrow { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(255,255,255,0.8); }
+  .contact { padding: 8rem 4vw; background: var(--accent); }
+  .contact .eyebrow { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.85); }
   .mega-mail {
-    display: block; margin-top: 1.6rem;
-    font-family: var(--display); font-weight: 900; font-style: italic;
-    font-size: clamp(2rem, 7vw, 6rem); line-height: 1.05;
-    color: var(--white); text-decoration: none; letter-spacing: 0;
-    transition: color .25s; word-break: break-word;
+    display: block; margin-top: 1.4rem;
+    font-family: var(--display); font-weight: 800; font-style: italic;
+    font-size: clamp(2rem, 6.5vw, 5.5rem); line-height: 1.05;
+    color: var(--white); text-decoration: none;
+    transition: color .2s; word-break: break-word;
   }
   .mega-mail:hover { color: var(--bg); }
   .contact-line {
-    display: inline-block; margin-top: 2.2rem;
-    font-family: var(--mono); font-size: 0.85rem; letter-spacing: 0.14em;
-    color: rgba(255,255,255,0.85);
+    display: inline-block; margin-top: 2rem;
+    font-family: var(--mono); font-size: 0.85rem; letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.9);
   }
   .contact-line i { font-style: normal; color: var(--bg); padding: 0 0.7em; }
   .contact ::selection { background: var(--bg); color: var(--white); }
@@ -252,19 +178,15 @@
   footer {
     border-top: 1px solid var(--line); padding: 2rem 4vw;
     display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
-    font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.18em;
+    font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.14em;
     text-transform: uppercase; color: var(--dim);
   }
-  footer span b { color: var(--accent); font-weight: 400; }
-
-  .reveal { opacity: 0; transform: translateY(34px); transition: opacity 0.9s cubic-bezier(.2,.7,.2,1), transform 0.9s cubic-bezier(.2,.7,.2,1); }
-  .reveal.visible { opacity: 1; transform: none; }
 
   @media (max-width: 960px) {
     .hero-grid { grid-template-columns: 1fr; gap: 3rem; }
     .hero-photo { max-width: 520px; }
     .grid { grid-template-columns: 1fr; gap: 3rem; }
-    .svc { grid-template-columns: 1fr; }
+    .services { grid-template-columns: 1fr; gap: 2rem; }
     .menu-toggle { display: block; }
     .nav-links {
       display: none; position: absolute; top: 100%; left: 0; right: 0;
@@ -273,7 +195,7 @@
     .nav-links.open { display: flex; }
     .nav-links li { text-align: center; }
     .nav-links a { display: block; padding: 1rem 0; }
-    nav { background: rgba(13,13,13,0.92); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+    nav { background: rgba(13,13,13,0.95); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
     .spec li { flex-direction: column; gap: 0.3rem; }
     .spec .v { text-align: left; }
     .pubs a, .pubs .pub-row { grid-template-columns: 3.4rem 1fr; }
@@ -283,7 +205,6 @@
 </head>
 <body>
 
-<div id="progress"></div>
 <nav>
   <a class="logo" href="#top">A—Y</a>
   <button class="menu-toggle" id="menuToggle" aria-label="Menu">☰</button>
@@ -321,11 +242,10 @@
 </header>
 
 <section id="research">
-  <div class="sec-head reveal">
-    <div class="ghost-num">01</div>
-    <h2>Research<em>.</em></h2>
+  <div class="sec-head">
+    <h2>Research</h2>
   </div>
-  <div class="grid reveal" style="margin-bottom: 3.5rem;">
+  <div class="grid" style="margin-bottom: 3.5rem;">
     <div>
       <p class="lede">My research addresses questions in applied ethics and the philosophy of education, many of them raised by artificial intelligence.</p>
       <p class="dim">My applied ethics program focuses on emerging technology and activism. With Jonathan Lang, I examine what is ethically distinctive about customizable AI-generated pornography, in a paper forthcoming in The Journal of Ethics, and I am developing a taxonomy of how artificial intelligence is used, and guidelines for how it ought to be used, in research and teaching. The activism side takes up questions I first faced during my years as an organizer within the animal advocacy movement: how activists choosing among strategies under uncertainty should attend to the distribution of approaches across their movement, a framework I am extending to AI activism; the deliberative structure of two-level utilitarianism; and the animal-activist tactic of open rescue.</p>
@@ -341,7 +261,7 @@
       </ul>
     </div>
   </div>
-  <div class="reveal">
+  <div>
     <span class="side-label">Selected Publications</span>
     <ul class="pubs">
       <li><div class="pub-row">
@@ -370,16 +290,15 @@
         <span class="pub-venue">Social Theory &amp; Practice</span>
       </a></li>
     </ul>
-    <a class="btn ghost" href="cv.pdf" target="_blank" rel="noopener">Curriculum Vitae</a>
+    <a class="btn" href="cv.pdf" target="_blank" rel="noopener">Curriculum Vitae</a>
   </div>
 </section>
 
 <section id="teaching">
-  <div class="sec-head reveal">
-    <div class="ghost-num">02</div>
-    <h2>Teaching<em>.</em></h2>
+  <div class="sec-head">
+    <h2>Teaching</h2>
   </div>
-  <div class="reveal" style="max-width:52em; position:relative; z-index:1;">
+  <div style="max-width:52em; position:relative; z-index:1;">
     <p class="lede">My goal as a teacher is located where teaching is most difficult: having students reason for themselves about genuinely contestable, and often socially controversial, questions.</p>
     <p class="dim">When my goal is for students to understand a concept or a reading, I use active learning techniques that help them achieve understanding rather than simply telling them the answer. When it is time to explore a genuinely contestable question, I facilitate an inquiry dialogue, helping students search for answers by pushing them to reason better with arguments, examples, and evidence. Much of my work is deciding which type of dialogue a moment calls for. At the University of Wisconsin–Madison and The Ohio State University, I have taught courses on civil discourse, computing ethics, environmental ethics, business ethics, pandemic ethics, the ethics of revolution and resistance, and the theory and practice of teaching philosophy. My courses address questions that many students are afraid to discuss: free expression, abortion, animal ethics, protest and political violence, the distribution of environmental burdens.</p>
     <p class="dim">Since 2023 I have facilitated more than ninety dialogue facilitation and pedagogy workshops, reaching over 2,000 recorded participants across Ohio State's departments, scholars programs, residence halls, and medical units, as well as outside organizations and institutions including the National League of Cities, the American Association of University Women, and Yale University. I also coach Ohio State's ethics bowl team.</p>
@@ -387,11 +306,10 @@
 </section>
 
 <section id="public">
-  <div class="sec-head reveal">
-    <div class="ghost-num">03</div>
-    <h2>Public Philosophy<em>.</em></h2>
+  <div class="sec-head">
+    <h2>Public Philosophy</h2>
   </div>
-  <div class="grid reveal">
+  <div class="grid">
     <div>
       <p class="lede">I build and run dialogue programming for campuses, schools, and communities.</p>
       <p class="dim">As Associate Director of the <a class="tl" href="https://cehv.osu.edu" target="_blank" rel="noopener">Center for Ethics and Human Values</a>, I oversee programming in dialogue facilitation, outreach, and the ETHOS Fellows program. I co-developed Ohio State's university-wide civil discourse initiative Listen. Learn. Discuss. and serve on its leadership team, and I co-created and facilitated the first Buckeye Day of Dialogue, an unscripted inquiry dialogue on free speech and campus protests with topics chosen by attendees in real time. In 2026 I gave the TEDxOhioStateUniversity talk "How (not) to answer life's biggest questions," and I serve as a Physicians Coach at The James Comprehensive Cancer Center.</p>
@@ -406,11 +324,10 @@
 </section>
 
 <section id="media">
-  <div class="sec-head reveal">
-    <div class="ghost-num">04</div>
-    <h2>Media<em>.</em></h2>
+  <div class="sec-head">
+    <h2>Media</h2>
   </div>
-  <div class="media-group reveal">
+  <div class="media-group">
     <span class="side-label">Op-Eds &amp; Essays</span>
     <ul class="pubs">
       <li><a href="https://isthmus.com/opinion/opinion/how-the-tactic-of-open-rescue-came-to-wisconsin/" target="_blank" rel="noopener">
@@ -460,7 +377,7 @@
       </a></li>
     </ul>
   </div>
-  <div class="media-group reveal">
+  <div class="media-group">
     <span class="side-label">Press Coverage &amp; Expert Features</span>
     <ul class="pubs">
       <li><a href="https://news.osu.edu/buckeye-day-of-dialogue-helps-expand-civil-discourse-at-ohio-state" target="_blank" rel="noopener">
@@ -520,7 +437,7 @@
       </a></li>
     </ul>
   </div>
-  <div class="media-group reveal">
+  <div class="media-group">
     <span class="side-label">Broadcast, Video &amp; Podcasts</span>
     <ul class="pubs">
       <li><a href="https://www.wosu.org/show/all-sides/2026-04-06/what-are-the-best-ways-to-handle-difficult-conversations" target="_blank" rel="noopener">
@@ -553,53 +470,48 @@
 </section>
 
 <section id="counseling">
-  <div class="sec-head reveal">
-    <div class="ghost-num">05</div>
-    <h2>Counseling &amp; Consulting<em>.</em></h2>
+  <div class="sec-head">
+    <h2>Counseling &amp; Consulting</h2>
   </div>
-  <div class="reveal" style="max-width:48em; position:relative; z-index:1;">
+  <div style="max-width:48em; position:relative; z-index:1;">
     <p class="lede">I am the founding director of Philosophy Counseling and Consulting. Sessions run in person in Columbus and online.</p>
   </div>
-  <div class="reveal">
-    <div class="svc">
-      <div class="svc-card">
-        <span class="idx">i.</span>
+  <div>
+    <div class="services">
+      <div>
         <h3>Individual Counseling</h3>
         <p>Explore personal values and life challenges in a caring, supportive, and honest environment.</p>
       </div>
-      <div class="svc-card">
-        <span class="idx">ii.</span>
+      <div>
         <h3>Workshops for Educators</h3>
         <p>Dialogue-facilitation training for teachers and administrators, including work on highly charged, controversial issues.</p>
       </div>
-      <div class="svc-card">
-        <span class="idx">iii.</span>
+      <div>
         <h3>Ethics Consulting</h3>
         <p>Dialogue facilitation and ethics consulting for organizations.</p>
       </div>
     </div>
-    <a class="btn" href="https://www.philosophycc.com" target="_blank" rel="noopener">Visit the Practice →</a>
+    <a class="btn" href="https://www.philosophycc.com" target="_blank" rel="noopener">Visit the Practice</a>
   </div>
 </section>
 
 <section id="music">
-  <div class="sec-head reveal">
-    <div class="ghost-num">06</div>
-    <h2>Music<em>.</em></h2>
+  <div class="sec-head">
+    <h2>Music</h2>
   </div>
-  <div class="reveal" style="max-width:52em; position:relative; z-index:1;">
+  <div style="max-width:52em; position:relative; z-index:1;">
     <p class="lede">I am a violinist with an active and eclectic career that spans styles, roles, and genres.</p>
     <p class="dim">I studied with Zvi Zeitlin at the Eastman School of Music. I have performed with orchestras including the Madison Symphony Orchestra, the Louisiana Philharmonic Orchestra, Camerata Chicago, Orchestra Iowa, the Newark-Granville Symphony Orchestra, and the New World Symphony, with festival appearances at the Lucerne Festival Academy, the Music Academy of the West, the Bowdoin International Music Festival, and InterHarmony. New music has been a constant thread: I have played with the Columbus Ohio Discovery Ensemble, Contrary Motion, Sound Out Loud, and the OSSIA New Music Group.</p>
     <p class="dim">My current projects are Duo 161, a classical chamber duo with cellist Rosa Balderrama, and Liminal Aberration, a jazz fusion duo. Past projects include The Critique of Pure Rhythm and the Burning City Orchestra, and I have also toured with the Irish Tenors and recorded with the Irish traditional band Dannsair on <em>Mists of Ennistymon</em>.</p>
     <p class="dim">The electronics interest me as much as the instruments. I design and build guitar pedals, and taught a pedal-building workshop for Ohio State undergraduates; I also restore vintage audio equipment for a dedicated listening room.</p>
     <p class="dim">I am a registered Suzuki teacher and have taught at community music schools, public schools, and summer camps. My musical and philosophical lives meet in research on inquiry-based music teaching and learning, which I presented at the College Music Society's 2026 national conference.</p>
-    <a class="btn ghost" href="#contact">Performances &amp; Lessons</a>
+    <a class="btn" href="#contact">Performances &amp; Lessons</a>
   </div>
 </section>
 
 <section id="contact" class="contact">
-  <div class="reveal">
-    <span class="eyebrow">07 · Contact</span>
+  <div>
+    <span class="eyebrow">Contact</span>
     <a class="mega-mail" href="mailto:ayarmel@gmail.com">ayarmel@gmail.com</a>
     <br>
     <span class="contact-line">(585) 727-5847<i>·</i>Columbus, Ohio</span>
@@ -607,18 +519,13 @@
 </section>
 
 <footer>
-  <span>Aaron Yarmel <b>✦</b> © 2026</span>
-  <span>Philosophy <b>✦</b> Counseling <b>✦</b> Facilitation <b>✦</b> Violin</span>
+  <span>Aaron Yarmel · © 2026</span>
+  <span>Philosophy · Counseling · Facilitation · Violin</span>
 </footer>
 
 <script>
   const navEl = document.querySelector('nav');
-  const progress = document.getElementById('progress');
-  addEventListener('scroll', () => {
-    navEl.classList.toggle('scrolled', scrollY > 30);
-    const max = document.documentElement.scrollHeight - innerHeight;
-    progress.style.width = (max > 0 ? (scrollY / max) * 100 : 0) + '%';
-  }, { passive: true });
+  addEventListener('scroll', () => navEl.classList.toggle('scrolled', scrollY > 30), { passive: true });
 
   const navMap = {};
   document.querySelectorAll('.nav-links a[href^="#"]').forEach(a => navMap[a.getAttribute('href').slice(1)] = a);
@@ -637,11 +544,6 @@
   const links = document.getElementById('navLinks');
   toggle.addEventListener('click', () => links.classList.toggle('open'));
   links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
-
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 </script>
 </body>
 </html>
